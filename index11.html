@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue 引用ref</title>
+       <script src="./vue.js"></script>
+</head>
+<body>
+  <div id="root">
+      <div
+          ref = 'hello'
+          @click = "handleClick"
+      >
+         hello World    
+      </div>
+  </div>  
+  <script>
+     var vm = new Vue({
+          el:"#root",
+          methods:{
+              handleClick: function () {
+                alert(this.$refs.hello.innerHTML)  
+              }
+          }
+      })
+  </script>
+</body>
+</html>
