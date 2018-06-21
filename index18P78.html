@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue 使用自定义表单v-model子传父传递参数</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <p>总数：{{total}}</p>
+        <my-component v-model="total"></my-component>
+        <button @click="handleReduce">-1</button>
+    </div>
+    <script>
+        Vue.component('my-component', {
+            props: ['value'],
+            template: '<input :value="value" @input="updateValue">',
+            methods: {
+                updateValue: function (event) {
+                    this.$emit('input', event.target.value);
+                }
+            }
+        });
+        var vm = new Vue({
+            el: "#root",
+            data: {
+                total: 0
+            },
+            methods: {
+                handleReduce: function () {
+                    this.total--;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

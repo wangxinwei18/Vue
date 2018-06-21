@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue 非父子组件bus传递P80</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        {{message}}
+        <component-a></component-a>
+    </div>
+    <script>
+        var bus = new Vue();
+        Vue.component('component-a', {
+            template: '<button @click="handleEvent">传递事件</button>',
+            methods: {
+                handleEvent: function () {
+                    bus.$emit('on-message', '来自组件component-a的内容')
+                }
+            }
+         })
+        var vm = new Vue({
+            el: "#root",
+            data: {
+                message: ''
+            },
+            mounted: function () {
+                var _this = this;
+                //在实例初始化时监听来自bus的实例的事件
+                bus.$on('on-message', function (msg) {
+                    _this.message = msg;
+                })
+            }
+
+        })
+    </script>
+</body>
+
+</html>
