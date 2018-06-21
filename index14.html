@@ -4,29 +4,25 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Vue 入门</title>
+    <title>Vue 给组件绑定原生事件</title>
     <script src="./vue.js"></script>
 </head>
 
 <body>
     <div id="root">
-      <child content="hello world" ></child>
+      <child @click.native="handleClick" ></child>
     </div>
     <script>
         Vue.component('child', {
-            props: {
-                content: {
-                    type: String,
-                    validator: function (value) {
-                        return (value.length > 5)
-                    }
-                }
-            },
-            template: '<div>{{content}}</div>'
+            template: '<div>Child</div>'
         })
         var vm = new Vue({
             el: "#root",
-
+            methods: {
+                handleClick: function() {
+                    alert('click')
+                }
+            }
         })
     </script>
 </body>
