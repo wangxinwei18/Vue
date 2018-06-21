@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue 非父子组件bus传递</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <child content="Wang"></child>
+        <child content="Zhang"></child>
+    </div>
+    <script>
+        Vue.prototype.bus = new Vue()
+        Vue.component('child', {
+            data: function () {
+                return {
+                    selfContent: this.content
+                }
+            },
+            props: {
+                content: String
+            },
+            template: '<div @click="handleClick">{{selfContent}}</div>',
+            methods: {
+                handleClick: function () {
+                    this.bus.$emit('change', this.selfContent)
+                }
+            },
+            mounted: function () {
+                var this_ = this
+                this.bus.$on('change', function (msg) {
+                    this_.selfContent = msg
+                })
+            }
+        })
+        var vm = new Vue({
+            el: "#root",
+            methods: {
+                handleClick: function () {
+                    alert('click')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
