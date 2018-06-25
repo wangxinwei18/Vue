@@ -16,11 +16,9 @@
     </div>
     <script>
         Vue.component('my-component', {
-            template: '\
-          <div>\
-          <button @click="handleIncrease">+1</button>\
-          <button @click="handleReduce">-1</button>\
-          </div>',
+            template: `<div> <button @click="handleIncrease">+1</button>
+                             <button @click="handleReduce">-1</button>
+                       </div>`,
             data: function () {
                 return {
                     counter: 0
