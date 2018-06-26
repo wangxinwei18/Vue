@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue 多个子组件过渡</title>
+    <script src="./vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+
+        <transition mode="in-out">
+            <component :is="type"></component>
+        </transition>
+        <button @click="handleClick">Toggle</button>
+    </div>
+    <script>
+        Vue.component('child', {
+            template: '<div>child</div>'
+        })
+        Vue.component('child-one', {
+            template: '<div>child-one</div>'
+        })
+        var vm = new Vue({
+            el: "#root",
+            data: {
+                type: 'child'
+            },
+            methods: {
+                handleClick: function () {
+                    this.type = (this.type === 'child' ? 'child-one' : 'child')
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>
